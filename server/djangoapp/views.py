@@ -65,8 +65,7 @@ def registration(request):
     # If it is a new user
     if not username_exist:
         # Create user in auth_user table
-        user = User.objects.create_user(username=username,
-                                        first_name=first_name, last_name=last_name, password=password, email=email)
+        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, password=password, email=email)   # noqa: E501
         # Login the user and redirect to list page
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
@@ -84,8 +83,7 @@ def get_cars(request):
     car_models = CarModel.objects.select_related('car_make')
     cars = []
     for car_model in car_models:
-        cars.append({"CarModel": car_model.name,
-        "CarMake": car_model.car_make.name})
+        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})   # noqa: E501
     return JsonResponse({"CarModels": cars})
 
 
@@ -133,7 +131,6 @@ def add_review(request):
             return JsonResponse({"status": 200, "response": response})
         except Exception as err:
             print(f"Unexpected {err=}, {type(err)=}")
-            return JsonResponse({"status": 401,
-                                    "message": "Error in posting review"})
+            return JsonResponse({"status": 401, "message": "Error in posting review"})   # noqa: E501
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
